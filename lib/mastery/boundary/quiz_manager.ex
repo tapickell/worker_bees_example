@@ -10,6 +10,10 @@ defmodule Mastery.Boundary.QuizManager do
 
   def init(_quizzes), do: {:error, @init_error}
 
+  def start_link(options \\ []) do
+    GenServer.start_link(__MODULE__, %{}, options)
+  end
+
   def handle_call({:build_quiz, quiz_fields}, _from, quizzes) do
     quiz = Quiz.new(quiz_fields)
     new_quizzes = Map.put(quizzes, quiz.title, quiz)
