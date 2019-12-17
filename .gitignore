@@ -22,3 +22,12 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 mastery-*.tar
 
+# Ignore mix.lock and tmp/ for each app being built independently
+mix.lock
+tmp
+
+# Elixir 1.6+ file(s)
+.tool-versions
+
+.elixir_ls
+
