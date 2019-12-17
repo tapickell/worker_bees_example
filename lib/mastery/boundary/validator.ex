@@ -1,7 +1,7 @@
 defmodule Mastery.Boundary.Validator do
   @is_required "is required"
 
-  def require(errors, fields, filed_name, validator) do
+  def require(errors, fields, field_name, validator) do
     present = Map.has_key?(fields, field_name)
     check_required_field(present, fields, errors, field_name, validator)
   end
@@ -34,7 +34,7 @@ defmodule Mastery.Boundary.Validator do
     errors ++ [{field_name, message}]
   end
 
-  defp check_field({:errors, message}, errors, field_name) do
+  defp check_field({:errors, messages}, errors, field_name) do
     errors ++ Enum.map(messages, &{field_name, &1})
   end
 end

@@ -16,7 +16,7 @@ defmodule Mastery.Boundary.QuizValidator do
   def errors(_fields), do: [{nil, @required}]
 
   def validate_title(title) when is_binary(title) do
-    Validator.check(String.match?(title, ~r{\S})), {:error, @blank})
+    Validator.check(String.match?(title, ~r{\S}), {:error, @blank})
   end
 
   def validate_title(_title), do: {:error, @string}

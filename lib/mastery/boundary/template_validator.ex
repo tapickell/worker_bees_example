@@ -17,7 +17,7 @@ defmodule Mastery.Boundary.TemplateValidator do
     []
     |> Validator.require(fields, :name, &validate_name/1)
     |> Validator.require(fields, :category, &validate_name/1)
-    |> Validator.optional(fields, :instructions, &validate_instrucions/1)
+    |> Validator.optional(fields, :instructions, &validate_instructions/1)
     |> Validator.require(fields, :raw, &validate_raw/1)
     |> Validator.require(fields, :generators, &validate_generators/1)
     |> Validator.require(fields, :checker, &validate_checker/1)
@@ -34,7 +34,7 @@ defmodule Mastery.Boundary.TemplateValidator do
   def validate_instructions(_inst), do: {:error, @binary}
 
   def validate_raw(raw) when is_binary(raw) do
-    check(String.match?(raw, ~r{\S}), {:error, @blank})
+    Validator.check(String.match?(raw, ~r{\S}), {:error, @blank})
   end
 
   def validate_raw(_raw), do: {:error, @string}
@@ -45,14 +45,14 @@ defmodule Mastery.Boundary.TemplateValidator do
     |> Enum.reject(&(&1 == :ok))
     |> case do
       [] -> :ok
-      errors -> {errors: errors}
+      errors -> {:errors, errors}
     end
   end
 
   def validate_generators(_gen), do: {:error, @map}
 
   def validate_generator({name, generator}) when is_atom(name) and is_list(generator) do
-    check(generator != [], {:error, @empty})
+    Validator.check(generator != [], {:error, @empty})
   end
 
   def validate_generator(_gen), do: {:error, @generator}
