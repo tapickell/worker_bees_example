@@ -1,18 +1,5 @@
 defmodule Mastery do
-  @moduledoc """
-  Documentation for Mastery.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Mastery.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  alias Mastery.Boundary.{QuizSession, QuizManager}
+  alias Mastery.Boundary.{TemplateValidator, QuizValidator}
+  alias Mastery.Core.Quiz
 end

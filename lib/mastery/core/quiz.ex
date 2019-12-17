@@ -112,7 +112,7 @@ defmodule Mastery.Core.Quiz do
   end
 
   defp reset_used(%{current_question: question} = quiz) do
-    Map.put(quiz, :used, Map.delete(quiz.used, question.template))
+    Map.put(quiz, :used, List.delete(quiz.used, question.template))
   end
 
   defp reset_template_cycle(%{templates: templates, used: used} = quiz)
