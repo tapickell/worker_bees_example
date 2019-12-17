@@ -1,13 +1,14 @@
 defmodule Mastery.Boundary.TemplateValidator do
   alias Mastery.Boundary.Validator
 
-  @atom "must be an atom"
   @arrity "must be an arrity 2 function"
+  @atom "must be an atom"
   @binary "must be a binary"
   @blank "can't be blank"
   @empty "can't be empty"
   @generator "must be a string to list or function pair"
   @keyword_list "A keyword list of fields is required"
+  @list "A list of templates is required"
   @map "must be a map"
   @string "must be a string"
 
@@ -24,6 +25,17 @@ defmodule Mastery.Boundary.TemplateValidator do
   end
 
   def errors(_fields), do: [{nil, @keyword_list}]
+
+  def multi_errors(templates) when is_list(templates) do
+    errors = Enum.map(templates, &errors/1)
+
+    case Enum.all?(errors, &(:ok == &1)) do
+      true -> :ok
+      false -> errors
+    end
+  end
+
+  def multi_errors(_templates), do: {:error, @list}
 
   def validate_name(name) when is_atom(name), do: :ok
 

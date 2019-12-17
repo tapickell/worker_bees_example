@@ -2,6 +2,7 @@
              [{applications,[kernel,stdlib,elixir,logger]},
               {description,"mastery"},
               {modules,['Elixir.Mastery','Elixir.Mastery.Application',
+                        'Elixir.Mastery.Boundary.Proctor',
                         'Elixir.Mastery.Boundary.QuizManager',
                         'Elixir.Mastery.Boundary.QuizSession',
                         'Elixir.Mastery.Boundary.QuizValidator',
